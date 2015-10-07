@@ -1,5 +1,6 @@
 package msopentech.azure;
 
+import java.io.Console;
 import java.util.Set;
 
 import org.apache.cordova.CallbackContext;
@@ -12,6 +13,8 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Debug;
+import android.util.DebugUtils;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.microsoft.windowsazure.messaging.NativeRegistration;
@@ -34,8 +37,15 @@ public class NotificationHub extends CordovaPlugin {
             if (action.equals("registerApplication")) {   
                     String hubName = args.getString(0);
                     String connectionString = args.getString(1);
+
+                    // get tags if there are any
+                    String[] tags = null;
+                    if (args.getString(3) != null) {
+                        tags = args.getString(3).substring(1, args.getString(3).length() - 1).replace("\"", "").split(",");
+                    }
+
                     String senderId = args.getString(4);
-                    registerApplication(hubName, connectionString, senderId);
+                    registerApplication(hubName, connectionString, senderId, tags);
                     return true;
             }
             
@@ -57,7 +67,7 @@ public class NotificationHub extends CordovaPlugin {
      * Asynchronously registers the device for native notifications.
      */
     @SuppressWarnings("unchecked")
-    private void registerApplication(final String hubName, final String connectionString, final String senderId) {
+    private void registerApplication(final String hubName, final String connectionString, final String senderId, final String[] tags) {
 
         try {
             final GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(cordova.getActivity());
@@ -69,8 +79,8 @@ public class NotificationHub extends CordovaPlugin {
                 protected Object doInBackground(Object... params) {
                    try {
                       String gcmId = gcm.register(senderId);
-                      NativeRegistration registrationInfo = hub.register(gcmId);
-                      
+                      NativeRegistration registrationInfo = hub.register(gcmId, tags);
+
                       JSONObject registrationResult = new JSONObject();
                       registrationResult.put("registrationId", registrationInfo.getRegistrationId());
                       registrationResult.put("channelUri", registrationInfo.getGCMRegistrationId());
