@@ -1,6 +1,7 @@
 Windows Azure Notification Hubs with Tags plugin for Apache Cordova
 ==================================
-**Note that tags support is currently only working for Windows (Windows Phone 8+, Windows Universal etc) - other platforms need a small bit of work that should be done soon.**
+
+*This sample will register for the hubs and allow messages to be sent by tags but only the Windows version shows toasts. If you want toasts in iOS and Android, then check out https://github.com/ParamountVentures/ventures-paramount-phonegap-plugin-notificationhubs*
 
 Exposes Windows Azure [Notification Hubs](http://www.windowsazure.com/en-us/services/notification-hubs/) functionality as Apache Cordova Plugin. Support of Windows8, Windows Phone8, iOS and Android.
 
@@ -9,8 +10,9 @@ Exposes Windows Azure [Notification Hubs](http://www.windowsazure.com/en-us/serv
 
     var connectionString = "Endpoint=sb://[service bus name space].servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=[notification hub full key]",
         notificationHubPath = "[notification hub name]";
+    var senderId = 123456789; // your android sender id
 
-    var hub = new WindowsAzure.Messaging.NotificationHub(notificationHubPath, connectionString);
+    var hub = new WindowsAzure.Messaging.NotificationHub(notificationHubPath, connectionString, senderId);
 
     hub.registerApplicationAsync().then(function (result) {
         console.log("Registration successful: " + result.registrationId);
