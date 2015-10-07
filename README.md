@@ -1,12 +1,13 @@
 Windows Azure Notification Hubs with Tags plugin for Apache Cordova
 ==================================
 
-*This sample will register for the hubs and allow messages to be sent using tags on Windows and Android (I can't get the iOS version to build due to the refercene to an old external library so if you can, let me know) BUT only the Windows version shows toasts. 
+*This sample will register for the hubs and allow messages to be sent using tags on Windows and Android BUT only the Windows version shows toasts. *
 
-**I suggest you check out a more complete cross platform plugin at, including Windows, iOS and Android support for push, hubs, tags and toasts at :
+### A better approach ...
+I suggest you check out a more complete cross platform plugin at, including Windows, iOS and Android support for push, hubs, tags and toasts at :
 
- https://github.com/ParamountVentures/ventures-paramount-phonegap-plugin-notificationhubs*
-**
+ 	https://github.com/ParamountVentures/ventures-paramount-phonegap-plugin-notificationhubs*
+
 
 Exposes Windows Azure [Notification Hubs](http://www.windowsazure.com/en-us/services/notification-hubs/) functionality as Apache Cordova Plugin. Support of Windows8, Windows Phone8, iOS and Android.
 
